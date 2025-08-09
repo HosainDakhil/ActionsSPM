@@ -1,6 +1,9 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
-
+//
+//  ActionsSPM.swift
+//
+//  Created by Hussein Dakheel on 7/16/25.
+//  Copyright © 2025. All rights reserved.
+//
 import UIKit
 import ObjectiveC
 
@@ -28,7 +31,9 @@ private class GestureActionTrampoline {
     }
 }
 
-private var actionKey: UInt8 = 0
+private enum AssociatedKeys {
+    static let actionKey = "actionKey"
+}
 
 public extension UIControl {
     func add(event: UIControl.Event, action: @escaping (UIControl, UIEvent?) -> Void) {
@@ -53,6 +58,7 @@ public extension UIView {
     func addTap(count: Int = 1, action: @escaping () -> Void) -> UITapGestureRecognizer {
         let tap = UITapGestureRecognizer()
         tap.numberOfTapsRequired = count
-        return add(gesture: tap) { _ in action() }
+        _ = add(gesture: tap) { _ in action() }
+        return tap
     }
 }
